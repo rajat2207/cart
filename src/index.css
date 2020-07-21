@@ -17,13 +17,14 @@ body {
 }
 
 .cart-item-actions{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .action-icons{
   height:25px;
   width: 25px;
   margin-right: 10px;
+  color: '#777'
 }
 
 .action-icons:hover{
