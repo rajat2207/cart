@@ -27,6 +27,20 @@ class CartItem extends React.Component{
 
     }
 
+    decreaseQuantity = () => {
+
+        const {qty} = this.state;
+
+        if(qty === 0){
+            return;
+        }
+
+        this.setState((prevState)=>{
+            return{
+                qty: prevState.qty-1
+            }
+        });
+    }
     render(){
         const {price,title,qty} =this.state;
         return(
@@ -42,7 +56,7 @@ class CartItem extends React.Component{
                         {/* Buttons */}
                         <i 
                         className="fas fa-plus-circle action-icons"
-                        onClick={this.increaseQuantity.bind(this)}
+                        onClick={this.increaseQuantity}
                         ></i>
                         <i 
                         className="fas fa-minus-circle action-icons"
