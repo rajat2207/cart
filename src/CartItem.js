@@ -3,7 +3,7 @@ import React from 'react';
 class CartItem extends React.Component{
     
 
-    increaseQuantity = () => {
+    // increaseQuantity = () => {
         
         //setState form 1
         // this.setState({
@@ -11,30 +11,31 @@ class CartItem extends React.Component{
         // });
 
         //setState form 2- if prevState required use this
-        this.setState((prevState)=>{
-            return{
-                qty: prevState.qty+1
-            }
-        });
+    //     this.setState((prevState)=>{
+    //         return{
+    //             qty: prevState.qty+1
+    //         }
+    //     });
 
-    }
+    // }
 
-    decreaseQuantity = () => {
+    // decreaseQuantity = () => {
 
-        const {qty} = this.state;
+    //     const {qty} = this.state;
 
-        if(qty === 0){
-            return;
-        }
+    //     if(qty === 0){
+    //         return;
+    //     }
 
-        this.setState((prevState)=>{
-            return{
-                qty: prevState.qty-1
-            }
-        });
-    }
+    //     this.setState((prevState)=>{
+    //         return{
+    //             qty: prevState.qty-1
+    //         }
+    //     });
+    // }
     render(){
-        const {price,title,qty} =this.props.product;
+        const {price,title,qty,id} = this.props.product;
+        const {product,onIncreaseQuantity,onDecreaseQuantity,onDeleteProduct} = this.props;
         return(
             <div className="cart-item">
                 <div className="left-block">
@@ -48,14 +49,14 @@ class CartItem extends React.Component{
                         {/* Buttons */}
                         <i 
                         className="fas fa-plus-circle action-icons"
-                        onClick={this.increaseQuantity}
+                        onClick={()=>{onIncreaseQuantity(product)}}
                         ></i>
                         <i 
                         className="fas fa-minus-circle action-icons"
-                        onClick={this.decreaseQuantity}
+                        onClick={()=>{onDecreaseQuantity(product)}}
                         ></i>
                         <i className="fas fa-trash-alt action-icons"
-                        onClick={this.deleteQuantity}
+                        onClick={()=>{onDeleteProduct(id)}}
                         ></i>
                     </div>
                 </div>
