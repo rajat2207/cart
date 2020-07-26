@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-const CartItem = () => {
+const CartItem = (props) => {
     
 
     // increaseQuantity = () => {
@@ -33,12 +33,12 @@ const CartItem = () => {
     //         }
     //     });
     // }
-    const {price,title,qty,id} = this.props.product;
-    const {product,onIncreaseQuantity,onDecreaseQuantity,onDeleteProduct} = this.props;
+    const {price,title,qty,id} = props.product;
+    const {product,onIncreaseQuantity,onDecreaseQuantity,onDeleteProduct} = props;
     return(
         <div className="cart-item">
             <div className="left-block">
-                <img style={styles.image} alt="item"/>
+                <img style={styles.image} />
             </div>
             <div className="right-block">
                 <div style={ {fontSize:25} }>{title}</div>

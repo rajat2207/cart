@@ -2,11 +2,13 @@ import React from 'react';
 
 const Navbar = (props) =>{
 
+    const {count} =props;
+
     return(
         <div style={styles.nav}>
             <div style={styles.cartIconContainer}>
-                <i class="fas fa-shopping-cart" style={styles.cartIcon}></i>
-                <span style={styles.cartCount}>3</span>
+                <img src="https://image.flaticon.com/icons/svg/1170/1170678.svg" alt="cart-icon" style={styles.cartIcon}></img>
+                <span style={styles.cartCount}>{count}</span>
             </div>
         </div>
     )
