@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-class CartItem extends React.Component{
+const CartItem = () => {
     
 
     // increaseQuantity = () => {
@@ -33,36 +33,34 @@ class CartItem extends React.Component{
     //         }
     //     });
     // }
-    render(){
-        const {price,title,qty,id} = this.props.product;
-        const {product,onIncreaseQuantity,onDecreaseQuantity,onDeleteProduct} = this.props;
-        return(
-            <div className="cart-item">
-                <div className="left-block">
-                    <img style={styles.image}/>
-                </div>
-                <div className="right-block">
-                    <div style={ {fontSize:25} }>{title}</div>
-                    <div style={ {color:'#777'} }>Rs {price}</div>
-                    <div style={ {color:'#777'} }>Qty: {qty}</div>
-                    <div className="cart-item-actions">
-                        {/* Buttons */}
-                        <i 
-                        className="fas fa-plus-circle action-icons"
-                        onClick={()=>{onIncreaseQuantity(product)}}
-                        ></i>
-                        <i 
-                        className="fas fa-minus-circle action-icons"
-                        onClick={()=>{onDecreaseQuantity(product)}}
-                        ></i>
-                        <i className="fas fa-trash-alt action-icons"
-                        onClick={()=>{onDeleteProduct(id)}}
-                        ></i>
-                    </div>
+    const {price,title,qty,id} = this.props.product;
+    const {product,onIncreaseQuantity,onDecreaseQuantity,onDeleteProduct} = this.props;
+    return(
+        <div className="cart-item">
+            <div className="left-block">
+                <img style={styles.image} alt="item"/>
+            </div>
+            <div className="right-block">
+                <div style={ {fontSize:25} }>{title}</div>
+                <div style={ {color:'#777'} }>Rs {price}</div>
+                <div style={ {color:'#777'} }>Qty: {qty}</div>
+                <div className="cart-item-actions">
+                    {/* Buttons */}
+                    <i 
+                    className="fas fa-plus-circle action-icons"
+                    onClick={()=>{onIncreaseQuantity(product)}}
+                    ></i>
+                    <i 
+                    className="fas fa-minus-circle action-icons"
+                    onClick={()=>{onDecreaseQuantity(product)}}
+                    ></i>
+                    <i className="fas fa-trash-alt action-icons"
+                    onClick={()=>{onDeleteProduct(id)}}
+                    ></i>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 const styles = {
