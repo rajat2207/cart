@@ -1,36 +1,45 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
+import * as firebase from 'firebase';
 
 class App extends React.Component {
 
   constructor(){
     super();
     this.state ={
-      products:[
-          {
-              price: 99,
-              title: 'Watch',
-              qty:1,
-              img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-              id:1
-          },
-          {
-              price: 999,
-              title: 'Phone',
-              qty:10,
-              img: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80',
-              id:2
-          },
-          {
-              price: 34999,
-              title: 'Laptop',
-              qty:4,
-              img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-              id:3
-          }
-      ]
+      products:[],
+      loading:true
     }
+  }
+
+  componentDidMount(){
+    firebase
+    .firestore()
+    .collection('products')
+    .get()
+    .then((snapshot) => {
+      console.log(snapshot);
+
+      snapshot.docs.map((doc) => {
+        console.log(doc.data());
+        return '';
+      })
+
+      const products = snapshot.docs.map((doc) => {
+
+        const data=doc.data();
+        data['id']=doc.id;
+
+        return data;
+      })
+
+      this.setState({
+        products,
+        loading:false
+      })
+
+    })
   }
 
   handleIncreaseQuantity = (product)=>{
@@ -94,7 +103,7 @@ class App extends React.Component {
 
   render(){
 
-    const {products}=this.state;
+    const {products,loading}=this.state;
 
     return (
       <div className="App">
@@ -105,6 +114,7 @@ class App extends React.Component {
         onDecreaseQuantity={this.handleDecreaseQuantity}
         onDeleteProduct={this.handleDeleteProduct}
         />
+        {loading && <h1>Loading Products....</h1>}
         <div style={ { fontSize:20, padding:10} }>TOTAL: Rs.{this.getTotalPrice()}</div>
       </div>
     );
