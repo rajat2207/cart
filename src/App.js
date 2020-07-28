@@ -74,10 +74,23 @@ class App extends React.Component {
       // console.log('Hey please increase the quantity of this product', product);
       const {products} = this.state;
       const index =products.indexOf(product);
-      products[index].qty+=1;
-      this.setState({
-          products
-      });
+      // products[index].qty+=1;
+      // this.setState({
+      //     products
+      // });
+
+      const docRef = this.db.collection('products').doc(products[index].id)
+
+      docRef
+        .update({
+          qty : products[index].qty+1
+        })
+        .then(() => {
+          console.log('Document updated successfully')
+        })
+        .catch((err) => {
+          console.log("Error", err)
+        })
   }
 
   handleDecreaseQuantity = (product)=>{
@@ -89,20 +102,44 @@ class App extends React.Component {
           return;
       }
 
-      products[index].qty-=1;
-      this.setState({
-          products
-      });
+      // products[index].qty-=1;
+      // this.setState({
+      //     products
+      // });
+
+      const docRef = this.db.collection('products').doc(products[index].id);
+
+      docRef
+        .update({
+          qty:products[index].qty-1
+        })
+        .then(() => {
+          console.log("Document updated succssfully");
+        })
+        .catch((err) => {
+          console.log("Error ",err)
+        })
   }
 
   handleDeleteProduct = (id)=>{
-      const {products} = this.state;
+      // const {products} = this.state;
 
-      const items = products.filter((item)=> item.id !==id);
+      // const items = products.filter((item)=> item.id !==id);
 
-      this.setState({
-          products: items
-      })
+      // this.setState({
+      //     products: items
+      // })
+
+      const docRef=this.db.collection('products').doc(id);
+
+      docRef
+        .delete()
+        .then(() => {
+          console.log("Item Deleted Successfully");
+        })
+        .catch((err) => {
+          console.log("error",err);
+        })
   }
 
   getCartCount = () =>{
@@ -153,7 +190,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
-        <button onClick={this.addProduct} style={{padding: 20, fontSize:20}}>Add a Product</button>
+        {/* <button onClick={this.addProduct} style={{padding: 20, fontSize:20}}>Add a Product</button> */}
         <Cart
         products={products}
         onIncreaseQuantity={this.handleIncreaseQuantity}
